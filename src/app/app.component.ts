@@ -93,5 +93,17 @@ export class AppComponent implements OnInit{
       this.dataSource.paginator.firstPage();
     }
   }
+  openEditForm(Rdata: any){
+    const dialogRef = this.dialog.open(EmpAddEditComponent, {
+      data: Rdata
+    });
+    dialogRef.afterClosed().subscribe({
+      next:(val)=>{
+        if(val){
+          this.getEmployeeList();
+        }
+      }
+    })
   
+  }
 }
