@@ -53,7 +53,14 @@ export class AppComponent implements OnInit{
   }
 
   openAddEditEmpForm(){
-    this.dialog.open(EmpAddEditComponent);
+    const dialogRef = this.dialog.open(EmpAddEditComponent);
+    dialogRef.afterClosed().subscribe({
+      next:(val)=>{
+        if(val){
+          this.getEmployeeList();
+        }
+      }
+    })
   }
   getEmployeeList(){
     this.empService.getEmployeeList().subscribe({
@@ -67,7 +74,17 @@ export class AppComponent implements OnInit{
       }
     })
   }
-
+  deleteEmployee(id: number){
+    this.empService.deleteEmployee(id).subscribe({
+      next: (res)=>{
+        alert('Employee Deleted');
+        this.getEmployeeList();
+      },
+      error: (err)=>{
+        console.log(err);
+      }
+    })
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
