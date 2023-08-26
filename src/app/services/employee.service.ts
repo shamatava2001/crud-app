@@ -11,4 +11,7 @@ export class EmployeeService {
   addEmployee(data: any){
     return this.http.post('http://localhost:3000/employees', data);
   }
+  getEmployeeList(){
+    return this.http.get('http://localhost:3000/employees');
+  }
 }
